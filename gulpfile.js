@@ -123,8 +123,9 @@ gulp.task('serve_sass', () =>
 );
 
 // css文件添加前缀
-gulp.task('serve_css', ['serve_sass'], () =>
-    gulp.src(srcDir + '/**/*.css')
+gulp.task('serve_css', () =>
+    gulp.src([srcDir + '/**/*.scss', srcDir + '/**/*.css'])
+        .pipe(sass())
         .pipe(autoprefixer({
             overrideBrowserslist: [
                 "> 1%",
@@ -258,7 +259,7 @@ gulp.task('log', () => {
     }, 200);
 });
 
-gulp.task('freshFiles', (done) => {
+gulp.task('armFiles', (done) => {
     runSequence(
         ['inlineOperation'],
         ['serve_babel'],
@@ -288,7 +289,7 @@ gulp.task('page', async () => {
     runSequence(['log']);
 });
 
-gulp.task('dev', ['freshFiles'], () => {
+gulp.task('dev', ['armFiles'], () => {
     browserSync.init({
         port: port,
         server: {
@@ -298,7 +299,7 @@ gulp.task('dev', ['freshFiles'], () => {
         watch: true,
         notify: false
     });
-    gulp.watch(srcDir + '/**/*.*', ['freshFiles']);
+    gulp.watch(srcDir + '/**/*.*', ['armFiles']);
     runSequence(['log']);
 });
 
@@ -308,7 +309,7 @@ gulp.task('build', (done) => {
     }
     delDirector(targetDir);
     setTimeout(() => {
-        runSequence(['freshFiles'], ['buildHtmlMin'], ['log'], done);
+        runSequence(['armFiles'], ['buildHtmlMin'], ['log'], done);
     }, 1000)
 });
 
@@ -318,20 +319,4 @@ gulp.task('default', ['build'])
 
 function delDirector(path) {
     del(path, {force: true})
-}
-
-function getServerIp() {
-    let os = require('os');
-    let interfaces = os.networkInterfaces();
-    for (let devName in interfaces) {
-        if (interfaces.hasOwnProperty(devName)) {
-            let iFace = interfaces[devName];
-            for (let i = 0; i < iFace.length; i++) {
-                let alias = iFace[i];
-                if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-                    return alias.address;
-                }
-            }
-        }
-    }
 }
