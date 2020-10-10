@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 50px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta http-equiv="X-UA-COMPATIBLE" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy"
+          content="script-src 'self' 'unsafe-eval' 'unsafe-inline';object-src 'none';style-src 'self' 'unsafe-inline';">
+    <!-- @if NODE_ENV='pdt' -->
+    <script src="test/analytics.js"></script>
+    <!-- @endif -->
+    <title>模板</title>
+</head>
+<body style="font-size: 16px;">
+    <script>
+
+        <!-- @if NODE_ENV='pdt' -->
+        var homeApi = 'http://test.com';
+        <!-- @endif -->
+        <!-- @if NODE_ENV='pre' -->
+        var homeApi = 'http://test.st4.cn';
+        <!-- @endif -->
+        <!-- @if NODE_ENV='dev' -->
+        var homeApi = 'http://test.st1.cn';
+        <!-- @endif -->
+
+        // var homeApi2 = "<!-- @echo dev -->"
+
+    </script>
+</body>
+</html>
