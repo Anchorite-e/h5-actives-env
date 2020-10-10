@@ -28,35 +28,36 @@
 >
 
 ## 执行命令
+
 ```shell script
 # 参数 可选
 # 参数 --path 源码路径指定(默认src) --path try
 # 参数 --output 输出路径指定(默认dist) --output public
 # 参数 --env 编译环境指定(仅支持固定值) --env dev | pre | pdt
 
-# build 
+# build
 # 编译发布代码
-# 默认源码文件夹-src 默认输出文件夹-dist 默认环境 pdt 
+# 默认源码文件夹-src 默认输出文件夹-dist 默认环境 pdt
 gulp build
 gulp build --path try --output public --env pre
 
-# dev 
+# dev
 # 编译调试 包含代码转换
 # 默认源码文件夹-src 默认环境 dev
 gulp dev
 gulp dev --path try --env pre
 
-# page 
-# 简单开启热更新服务 
+# page
+# 简单开启热更新服务
 # 默认源码文件夹-src 默认环境 dev
-gulp page 
+gulp page
 gulp page --path try --env pre
 ```
 
 ## 版本要求
 
 > 1、gulp-cli 2.2.0
-> 
+>
 > 2、gulp 3.X (3.9.1)
 >
 > 3、node < 12 (v10.22.1)
