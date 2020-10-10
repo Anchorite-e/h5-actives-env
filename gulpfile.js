@@ -9,7 +9,6 @@ const gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     babel = require('gulp-babel'),
     sass = require('gulp-sass'),
-    concat = require('gulp-concat'),
     browserSync = require('browser-sync').create(),
     preprocess = require('gulp-preprocess'),
     minimist = require('minimist'),
@@ -30,14 +29,12 @@ const config = require('./config');
 let srcDir = 'src';         //配置源文件路径
 let targetDir = 'dist';     //配置目标文件路径
 
-let sass2Filename = 'style.css';    //配置sass处理后合成生成的文件
-
 let jsTargetDir = targetDir + '/js';
 let cssTargetDir = targetDir + '/css';
 
 let targetHtml = '*.html';      //配置html文件名称，可以指定为某个文件 如：jumpAli.html
 
-let port = 10001;
+let port = 10000;
 
 let _defaultENV = 'dev';
 
@@ -142,7 +139,6 @@ gulp.task('serve_css', () =>
             ]
         }))
         .pipe(cleanCss({compatibility: 'ie8'}))
-        // .pipe(concat(sass2Filename))     //样式文件合成
         .pipe(gulp.dest(targetDir))
 );
 
